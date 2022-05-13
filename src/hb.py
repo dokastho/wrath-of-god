@@ -73,7 +73,7 @@ class hb:
 
         self.sock.sendto(pack, (self.dest, 1))
 
-
+# instead of google, ping the aws instance
 # https://gist.github.com/pklaus/856268
 def checksum(source_string):
     # I'm not too confident that this is right but testing seems to
