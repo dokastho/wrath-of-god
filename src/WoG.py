@@ -1,6 +1,7 @@
 """Class file for WoG
 dokastho@umich.edu"""
 
+from datetime import datetime
 from hb import hb
 import json
 import logging
@@ -13,7 +14,7 @@ LOGGER = logging.getLogger(__name__)
 
 
 class WoG:
-    def __init__(self, host, port, hb_port):
+    def __init__(self, host, port, dest, hb_port):
         """Construct the WoG socket and listen for messages from hb thread."""
 
         # init the socket
@@ -36,7 +37,8 @@ class WoG:
         self.signals = {"shutdown": False}
 
         # instantiate hb obj
-        self.hb_obj = hb(self.host, self.hb_port, self.signals)
+        self.dest = dest
+        self.hb_obj = hb(self.host, self.hb_port, self.dest, self.signals)
 
         # start thread to listen for heartbeats
         self.hb_thread = Thread(
@@ -77,15 +79,17 @@ class WoG:
                 continue
             
             msg_type = message_dict["message_type"]
-            if msg_type == "dropped":
-                # connection dropped
+            timestamp = datetime.now()
+
+            if msg_type == "lost":
+                # connection attempt failed
+                LOGGER.warn("connection temporarily lost...", timestamp)
                 pass
             if msg_type == "reconnect":
                 # attempting new connection
+                LOGGER.info("reconnecting...", timestamp)
                 pass
             if msg_type == "fail":
-                # connection attempt failed
-                pass
-            if msg_type == "lost":
                 # reconnections won't work
+                LOGGER.warn("connection failed.", timestamp)
                 pass

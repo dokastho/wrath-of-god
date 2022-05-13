@@ -1,15 +1,9 @@
 """Class file for heartbeat thread."""
 
 import json
-import os
-import socket
-from threading import Thread
-import time
 import socket
 import struct
-import select
 import random
-import asyncore
 
 
 ICMP_ECHO_REQUEST = 8
@@ -41,6 +35,7 @@ class hb:
         self.sock.listen()
 
         # listen on socket for client connection file descriptors
+        # TODO stop when timeout
         while True:
             self.send_one()
             try:
@@ -64,8 +59,6 @@ class hb:
                 message_dict = json.loads(msg_str)
             except json.JSONDecodeError:
                 continue
-
-            msg_type = message_dict["message_type"]
 
     def send_one(self):
         """Send one packet."""
