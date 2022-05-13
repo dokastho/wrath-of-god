@@ -1,7 +1,6 @@
 """Driver for WoG"""
 
-import os
-from WoG import WoG
+from src.WoG import WoG
 
 
 def main():
@@ -13,3 +12,4 @@ def main():
 
     retribution = WoG(host, port, dest, hb_port)
     retribution.listen()
+    retribution.terminate()

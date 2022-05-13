@@ -103,9 +103,9 @@ def create_packet(id):
     header = struct.pack('bbHHh', ICMP_ECHO_REQUEST, 0, 0, id, 1)
     data = 192 * 'Q'
     # Calculate the checksum on the data and the dummy header.
-    my_checksum = checksum(header + data)
+    my_checksum = checksum(str(header) + data)
     # Now that we have the right checksum, we put that in. It's just easier
     # to make up a new header than to stuff it into the dummy.
     header = struct.pack('bbHHh', ICMP_ECHO_REQUEST, 0,
                          socket.htons(my_checksum), id, 1)
-    return header + data
+    return str(header) + data

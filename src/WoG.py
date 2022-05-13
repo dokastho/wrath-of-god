@@ -2,14 +2,14 @@
 dokastho@umich.edu"""
 
 from datetime import datetime
-from hb import hb
+from src.hb import hb
 import json
 import logging
 import os
 import socket
 from threading import Thread
 
-logging.basicConfig(filename='wog.log', encoding='utf-8', level=logging.DEBUG)
+logging.basicConfig(filename='wog.log')
 LOGGER = logging.getLogger(__name__)
 
 
@@ -97,3 +97,8 @@ class WoG:
                 # reconnections won't work
                 LOGGER.warn("connection failed.", timestamp)
                 pass
+    
+    def terminate(self):
+        """End the ping thread."""
+        # wait for thread to terminate
+        self.hb_thread.join()
