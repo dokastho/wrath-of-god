@@ -81,6 +81,10 @@ class WoG:
             msg_type = message_dict["message_type"]
             timestamp = datetime.now()
 
+            if msg_type == "connected":
+                # connection attempt failed
+                LOGGER.warn("connected.", timestamp)
+                pass
             if msg_type == "lost":
                 # connection attempt failed
                 LOGGER.warn("connection temporarily lost...", timestamp)

@@ -59,6 +59,9 @@ class hb:
                 message_dict = json.loads(msg_str)
             except json.JSONDecodeError:
                 continue
+            # if ok...
+            # if lost...
+            # if failed...
 
     def send_one(self):
         """Send one packet."""
