@@ -77,7 +77,7 @@ class WoG:
                 message_dict = json.loads(msg_str)
             except json.JSONDecodeError:
                 continue
-            
+
             msg_type = message_dict["message_type"]
             timestamp = datetime.now()
 

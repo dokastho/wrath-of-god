@@ -23,9 +23,9 @@ class hb:
         self.host = host
         self.port = port
         self.signals = signals
-        
+
         self.timeout = 1
-        
+
         self.dest = dest
 
     def connection(self):
@@ -68,7 +68,7 @@ class hb:
         """Send one packet."""
         # send ping
         packet_id = int((id(self.timeout) * random.random()) / 65535)
-        
+
         pack = create_packet(packet_id)
 
         self.sock.sendto(pack, (self.dest, 1))
